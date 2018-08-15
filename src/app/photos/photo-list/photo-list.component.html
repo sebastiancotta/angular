@@ -1,0 +1,12 @@
+<dir class="text-center mt-3 mb-3">
+    <form action="">
+        <input type="search" name="search" id="search" 
+            class="rounded" autofocus 
+            (keyup)="debounce.next($event.target.value)" 
+            placeholder="Search...">
+    </form>
+</dir>
+
+<ap-photos [photos]="photos | filterByDescription : filter"></ap-photos>
+
+<ap-load-button (click)="load()" [hasMore]="hasMore"></ap-load-button>
