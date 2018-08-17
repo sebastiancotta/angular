@@ -30,7 +30,7 @@ export class PhotoListComponent implements OnInit, OnDestroy {
     .pipe(debounceTime(300))
     .subscribe(filter => this.filter = filter);
   }
-
+  
   ngOnDestroy(): void {
     this.debounce.unsubscribe();
   }
