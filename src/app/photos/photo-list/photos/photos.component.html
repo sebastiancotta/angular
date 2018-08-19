@@ -3,8 +3,8 @@
 </p>
 <ol aria-hidden="true" class="list-unstyled">
   <li *ngFor='let row of rows' class="row no-gutters">
-    <div *ngFor='let photo of row' class="col-4">
-      <ap-card>
+    <div *ngFor='let photo of row' class="col-4" apDarkenOnHover>
+      <ap-card [title]="photo.description">
           <ap-photo 
           [url]='photo.url'
           [description]='photo.description'>
@@ -13,8 +13,7 @@
           <i class="fa fa-heart-o fa-1x mr-2"></i>{{photo.likes}}
           <i class="fa fa-comment-o fa-1x mr-2 ml-2"></i>{{photo.comments}}
         </div>
-      </ap-card>
-        
+      </ap-card>        
     </div>
   </li>
 </ol>
