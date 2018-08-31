@@ -37,3 +37,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+#front-end
+bower_components
+node_modules/
+jboss.server.log.dir*
+package-lock.json
+chrome.deb
