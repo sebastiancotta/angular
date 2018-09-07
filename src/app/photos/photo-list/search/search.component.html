@@ -1,0 +1,10 @@
+<dir class="text-center mt-3 mb-3">
+    <form>
+        <i class="far far-search mr-1"></i>
+        <input type="search" name="search" id="search" 
+            class="rounded" autofocus 
+            (keyup)="debounce.next($event.target.value)" 
+            placeholder="Search..."
+            [value]="value">
+    </form>
+</dir>
