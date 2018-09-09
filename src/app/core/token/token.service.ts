@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 
 const KEY = 'authToken';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: 'root'})
 export class TokenService {
 
-    hasToken(): boolean {
+    hasToken() {
         return !!this.getToken();
     }
 
@@ -13,8 +13,8 @@ export class TokenService {
         window.localStorage.setItem(KEY, token);
     }
 
-    getToken(): string {
-       return window.localStorage.getItem(KEY);
+    getToken() {
+        return window.localStorage.getItem(KEY);
     }
 
     removeToken() {

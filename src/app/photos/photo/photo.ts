@@ -1,10 +1,10 @@
 export interface Photo {
-    id: number;
-    postDate: Date;
+    id:number;
+    postDate:Date;
     url:string;
     description:string;
-    allowcomments:boolean;
+    allowComments:boolean;
     likes:number;
     comments:number;
-    userId:number;
+    userId:number;     
 }
