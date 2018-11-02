@@ -12,7 +12,10 @@ const routes: Routes = [
     {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'home'
+        redirectTo: 'home',
+        data: {
+            title: 'Home'
+        }
     },
     { 
         path: 'home',
@@ -23,20 +26,36 @@ const routes: Routes = [
         component: PhotoListComponent,
         resolve: {
             photos: PhotoListResolver
+        },
+        data: {
+            title: 'Time line'
         }
     },
     { 
         path: 'p/add', 
         component: PhotoFormComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: {
+            title: 'Add Photo'
+        }
     },
     { 
         path: 'p/:photoId', 
-        component: PhotoDetailsComponent
+        component: PhotoDetailsComponent,
+        data: {
+            title: 'Photo detail'
+        }
+    },
+    { 
+        path: 'not-found', 
+        component: NotFoundComponent,
+        data: {
+            title: 'No Found'
+        } 
     },
     { 
         path: '**', 
-        component: NotFoundComponent 
+        redirectTo: 'not-found'
     }  
 ];
 

@@ -1,19 +1,22 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { throwError, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Photo } from "./photo";
 import { PhotoComment } from './photo-comment';
+import { environment } from '../../../environments/environment';
 
-const API = 'http://localhost:3000';
+const API = environment.ApiUrl;
 
 @Injectable({ providedIn: 'root' })
 export class PhotoService {
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     listFromUser(userName: string) {
         return this.http
-            .get<Photo[]>(API + '/' + userName + '/photos');       
+            .get<Photo[]>(API + '/' + userName + '/photos');
     }
 
     listFromUserPaginated(userName: string, page: number) {
@@ -21,25 +24,30 @@ export class PhotoService {
             .append('page', page.toString());
 
         return this.http
-            .get<Photo[]>(API + '/' + userName + '/photos', { params });       
-    } 
-    
+            .get<Photo[]>(API + '/' + userName + '/photos', { params });
+    }
+
     upload(description: string, allowComments: boolean, file: File) {
-        
+
         const formData = new FormData();
         formData.append('description', description);
         formData.append('allowComments', allowComments ? 'true' : 'false');
         formData.append('imageFile', file);
 
-        return this.http.post(API + '/photos/upload', formData);
+        return this.http.post(API + '/photos/upload',
+            formData,
+            { 
+                observe: 'events',
+                reportProgress: true 
+            });
 
     }
 
-    findById(photoId: number){
+    findById(photoId: number) {
         return this.http.get<Photo>(API + '/photos/' + photoId);
     }
 
-    getPhotoComment(photoId: number){
+    getPhotoComment(photoId: number) {
         return this.http.get<PhotoComment[]>(API + '/photos/' + photoId + '/comments');
     }
 
@@ -50,5 +58,14 @@ export class PhotoService {
     removePhoto(photoId: number) {
         return this.http.delete(API + '/photos/' + photoId);
     }
-    
+
+    like(photoId: number) {
+        return this.http.post(API + '/photos/' + photoId + '/like',
+            {}, { observe: 'response' })
+            .pipe(map(res => true))
+            .pipe(catchError(erro => {
+                return erro.status == '304' ? of(false) : throwError(erro)
+            }))
+    }
+
 }
